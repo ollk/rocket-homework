@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Filters from './Filters';
 import './App.style.scss'
 
 import hotelResultService from '../../services/hotel-result/hotel-result.service';
@@ -15,7 +16,8 @@ const App = () => {
     return (
         <div className="app-container">
             <div className="content">
-                <div>
+                <Filters />
+                {/* <div>
                     <div className="filters">
                         Hotel name
                         <input type="text" className="input" maxLength={1}/>
@@ -27,7 +29,7 @@ const App = () => {
                         </select>
                         <button className="button">Reset</button>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="hotel-list">
                     {hotels.map(hotel => (
