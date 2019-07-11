@@ -8,8 +8,10 @@ import hotelResultService from '../../services/hotel-result/hotel-result.service
 const App = () => {
     const [hotels, setHotels] = useState([]);
 
+    //sort is set in Filter component and passed to List to determine sorting, if any
     const [sort, setSort] = useState('');
 
+    //hotelName is set in Filter, passed to List, used to filter by name
     const [hotelName, setHotelName] = useState('');
 
     useEffect(() => {

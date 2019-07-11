@@ -1,7 +1,9 @@
 import React from 'react';
+import HotelCard from './HotelCard';
 
 const List = (props) => {
 
+  //comparison function for low-to-high sort
   function lowHigh(a,b) {
     if (a.lowestAveragePrice.amount < b.lowestAveragePrice.amount){
       return -1;
@@ -11,6 +13,7 @@ const List = (props) => {
     }
   }
 
+  //comparison function for high-to-low sort
   function highLow(a,b) {
     if (a.lowestAveragePrice.amount > b.lowestAveragePrice.amount){
       return -1;
@@ -20,6 +23,7 @@ const List = (props) => {
     }
   }
 
+  //decides which comparison to use based on value of sort prop
   function sortHotels(hotels) {
     if (props.sort === 'low-high') {
       return hotels.sort((lowHigh))
@@ -28,37 +32,16 @@ const List = (props) => {
     }
   }
 
-  const hotels = props.sort ? sortHotels(props.hotels) : props.hotels;
+  //if sort prop truthy, sort, else use the default list
+  //slicing hotels array to aviod mutation when sorting
+  const hotels = props.sort ? sortHotels(props.hotels.slice(0)) : props.hotels;
   
-  
-
+  //if hotelName prop truthy and name does not match, render nothing, otherwise render hotel card component
   return (
     <div className="hotel-list">
         {hotels.map(hotel => (
-            <div className="hotel-card" key={hotel.id}>
-                <div
-                    className="image"
-                    style={{ backgroundImage: `url(${hotel.hotelStaticContent.mainImage.url})`}}>
-                </div>
-                <div className="hotel-details">
-                    <div className="hotel-name">
-                        {hotel.hotelStaticContent.name}
-                    </div>
-                    <div className="location">
-                        {hotel.hotelStaticContent.neighborhoodName}
-                    </div>
-                </div>
-                <div className="price-details">
-                    <span className="price">
-                        <span dangerouslySetInnerHTML={{ __html: hotel.lowestAveragePrice.symbol }}></span>
-                        {hotel.lowestAveragePrice.amount}
-                    </span>
-                    <span className="rewards">
-                        {hotel.rewards.miles} miles
-                    </span>
-                    <button className="button">Select</button>
-                </div>
-            </div>
+          props.hotelName && !hotel.hotelStaticContent.name.toLowerCase().includes(props.hotelName.toLowerCase()) ? '' :
+          <HotelCard hotel={hotel} key={hotel.id}/>
         ))}
     </div>
   )
