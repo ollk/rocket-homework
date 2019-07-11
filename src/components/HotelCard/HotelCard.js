@@ -8,7 +8,7 @@ const HotelCard = (props) => {
     <div className="hotel-card">
       <div
           className="image"
-          style={{ backgroundImage: `url(${hotel.hotelStaticContent.mainImage.url})`}}>
+          style={{ backgroundImage: `url(${hotel.hotelStaticContent.mainImage.url}),url('https://i.imgur.com/V4kN7W0.png')`}}>
       </div>
       <div className="hotel-details">
           <div className="hotel-name">

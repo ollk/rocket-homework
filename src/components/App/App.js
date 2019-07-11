@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Filters from './Filters';
-import List from  './List';
+import Filters from '../Filters/Filters';
+import List from  '../List/List';
 import './App.style.scss'
 
 import hotelResultService from '../../services/hotel-result/hotel-result.service';

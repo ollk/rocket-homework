@@ -1,5 +1,5 @@
 import React from 'react';
-import HotelCard from './HotelCard';
+import HotelCard from '../HotelCard/HotelCard';
 
 const List = (props) => {
 
