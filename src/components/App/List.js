@@ -36,13 +36,26 @@ const List = (props) => {
   //slicing hotels array to aviod mutation when sorting
   const hotels = props.sort ? sortHotels(props.hotels.slice(0)) : props.hotels;
   
-  //if hotelName prop truthy and name does not match, render nothing, otherwise render hotel card component
+
+  //if hotelName prop is truthy, filter hotels for name
+  //otherwise all hotels are passed to card component
+  //if no hotels match, render message
+  function generateList(hotels) {
+    const filteredHotels = props.hotelName ? 
+      hotels.filter(hotel => hotel.hotelStaticContent.name.toLowerCase().includes(props.hotelName.toLowerCase())) :
+      hotels
+
+    const hotelList = filteredHotels.map(hotel => (
+      <HotelCard hotel={hotel} key={hotel.id}/>
+    ))
+
+    return hotelList.length ? hotelList : <p>No matches found</p>
+  }
+
+
   return (
     <div className="hotel-list">
-        {hotels.map(hotel => (
-          props.hotelName && !hotel.hotelStaticContent.name.toLowerCase().includes(props.hotelName.toLowerCase()) ? '' :
-          <HotelCard hotel={hotel} key={hotel.id}/>
-        ))}
+        {generateList(hotels)}
     </div>
   )
 }

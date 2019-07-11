@@ -14,17 +14,23 @@ const App = () => {
     //hotelName is set in Filter, passed to List, used to filter by name
     const [hotelName, setHotelName] = useState('');
 
+    const [hasError, setHasError] = useState(false);
+
     useEffect(() => {
         hotelResultService.get().then(response => {
             setHotels(response.results.hotels)
         })
+        .catch(res => {
+            setHasError(true);
+        });
     }, []);
 
     return (
         <div className="app-container">
             <div className="content">
                 <Filters setSort={setSort} setHotelName={setHotelName}/>
-                <List hotels={hotels} sort={sort} hotelName={hotelName}/>
+                {hasError ? <p>Something went wrong :( Please try again</p>
+                : <List hotels={hotels} sort={sort} hotelName={hotelName}/>}
             </div>
         </div>
     )
